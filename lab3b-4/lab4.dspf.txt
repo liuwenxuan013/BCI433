@@ -1,0 +1,27 @@
+     A                                      DSPSIZ(24 80 *DS3)
+     A          R RECORD1
+     A                                      CF03(03 'EXIT')
+     A                                      CF21(21 'QUSCMDLN')
+     A                                  1 65DATE EDTCDE(Y)
+     A                                  2 65TIME
+     A                                  1 38'Lab 4'
+     A                                  8 15'1. Run Instructor's Tickets Program'
+     A                                  9 15'2. Maximum Invalid Signon Attempts Allowed'
+     A                                 10 15'3. Signed on User's Message Queue
+     A                                 11 15'4. Initial number of active jobs f-
+     A                                      or storage allocation'
+     A                                 12 15'5. Previous sign on by signed on u-
+     A                                      ser'
+     A                                 15 17'Option:'
+     A                                 23  4'F3=Exit'
+     A                                 23 17'F21=Command Line'
+     A                                  1  3'Wenxuan Liu'
+     A
+     A            OPTION         2A  B 15 25VALUES('1' '2' '3' '4' '5'
+     A                                      '01' '02' '03' '04' '05')
+     A  30                                  DSPATR(RI)
+     A  30                                  DSPATR(PC)
+     A            MSGTXT1       70   O 17  6
+     A            MSGTXT2       70   O 18  6
+     A            INVALID       31   O 15 29
+ 

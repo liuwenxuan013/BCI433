@@ -1,0 +1,105 @@
+
+                  DCL-F HWYTOLLB   WORKSTN;
+
+                   DCL-s adjusthour packed(2);
+
+                     EXFMT  TOLLINFO;
+
+                   DOW  NOT(*IN03);
+                         EXSR SETTOLLRATE;
+                         TollCharge = Kilometers * TollRate;
+                         If Transpndr = 'N';
+                           NoTransp = 4.07;
+                         Else;
+                           NoTransp = 0;
+                         ENDIF;
+
+                         TotalDue = TollCharge + NoTransp;
+
+                         *IN99 = *ON;
+                         WRITE TOLLINFO;
+                         EXFMT  SHOWTOLL;
+                         *IN99 = *OFF;
+
+                         IF *IN03 = *OFF;
+                              EXSR CLEAR;
+                              EXFMT  TOLLINFO;
+                         ENDIF;
+                   ENDDO;
+            *INLR  = *ON;
+            RETURN;
+
+            BEGSR SETTOLLRATE;
+                EXSR AdjustTime;
+              Select;
+                 When Vehicle = 'L';
+                   EXSR LightVehicle;
+                 When Vehicle = 'H';
+                   EXSR HeavyVehicle;
+                 When Vehicle = 'M';
+                   EXSR MultVehicle;
+              ENDSL;
+            ENDSR;
+
+            BEGSR AdjustTime;
+              SELECT;
+                WHEN AMPM = 'AM' and HOUR = 12;
+                  AdjustHour = 0;
+                WHEN AMPM = 'PM' and HOUR <> 12;
+                  AdjustHour = Hour + 12;
+                OTHER;
+                  AdjustHour = HOUR;
+              ENDSL;
+            ENDSR;
+
+            BEGSR LightVehicle;
+               SELECT;
+                 WHEN AdjustHour >= 19 or AdjustHour < 6;
+                  TOLLRATE = 0.2162;
+                 WHEN AdjustHour >=16;
+                  TOLLRATE = 0.3842;
+                 WHEN AdjustHour >= 10;
+                  TOLLRATE = 0.2833;
+                 WHEN AdjustHour >= 9;
+                  TOLLRATE = 0.3259;
+                 WHEN AdjustHour >= 6;
+                  TOLLRATE = 0.3707;
+               ENDSL;
+            ENDSR;
+
+            BEGSR HeavyVehicle;
+               SELECT;
+                 WHEN AdjustHour >= 19 or AdjustHour < 6;
+                  TOLLRATE = 0.4324;
+                 WHEN AdjustHour >=16;
+                  TOLLRATE = 0.7683;
+                 WHEN AdjustHour >= 10;
+                  TOLLRATE = 0.5666;
+                 WHEN AdjustHour >= 9;
+                  TOLLRATE = 0.6518;
+                 WHEN AdjustHour >= 6;
+                  TOLLRATE = 0.7418;
+               ENDSL;
+            ENDSR;
+
+            BEGSR MultVehicle;
+               SELECT;
+                 WHEN AdjustHour >= 19 or AdjustHour < 6;
+                  TOLLRATE = 0.6486;
+                 WHEN AdjustHour >=16;
+                  TOLLRATE = 1.1525;
+                 WHEN AdjustHour >= 10;
+                  TOLLRATE = 0.8499;
+                 WHEN AdjustHour >= 9;
+                  TOLLRATE = 0.9778;
+                 WHEN AdjustHour >= 6;
+                  TOLLRATE = 1.1122;
+               ENDSL;
+            ENDSR;
+
+            BEGSR CLEAR;
+               TOLLRATE = 0;
+               TOLLCHARGE = 0;
+               NOTRANSP = 0;
+               TOTALDUE = 0;
+            ENDSR; 

@@ -1,0 +1,59 @@
+                R TITLE
+     A                                  1  5DATE
+     A                                      EDTCDE(Y)
+     A                                  1 17TIME
+     A                                  1 47'Weekly Payroll Report'
+     A                                  1 87'Page:'
+     A                                  1 93PAGNBR
+     A                                  2  5'Name:'
+     A                                  2 13'Your name'
+     A            SHIFTTYPE     30      2 43
+     A          R COLHDG
+     A                                     5'Employee '
+     A                                      SPACEB(2)
+     A                                    19'Work'
+     A                                    28'Pay'
+     A                                    37'Hourly'
+     A                                    47'Hours'
+     A                                    57'Regular'
+     A                                    70'Overtime'
+     A                                    82'Total'
+     A                                     5'Number'
+     A                                      SPACEB(1)
+     A                                    19'Shift'
+     A                                    28'Grade'
+     A                                    38'Rate'
+     A                                    47'Worked'
+     A                                    59'Pay'
+     A                                    73'Pay'
+     A                                    90'Pay'
+     A          R EMPDETAIL                 SPACEB(2)
+     A            EMPNUM    R              5REFFLD(ALLSHIFT/EMPNUM SENECAPAY/AL-
+     A                                      LSHIFT)
+     A                                      EDTWRD('0   -   -   ')
+     A            WORKSHIFT R             21REFFLD(ALLSHIFT/WORKSHIFT +
+     A                                      SENECAPAY/ALLSHIFT)
+     A            PAYGRADE  R             30REFFLD(ALLSHIFT/PAYGRADE +
+     A                                      SENECAPAY/ALLSHIFT)
+     A            HOURLYRATE     5  2     38EDTCDE(1)
+     A            HRSWORKED R             49REFFLD(ALLSHIFT/HRSWORKED +
+     A                                      SENECAPAY/ALLSHIFT)
+     A                                      EDTCDE(2)
+     A            REGULARPAY     7  2     58EDTCDE(1)
+     A            OVERPAY        7  2     70EDTCDE(1)
+     A            TOTALPAY       7  2     89EDTCDE(1)
+     A          R TOTALS                    SPACEB(2)
+     A                                    37'Totals:'
+     A            TOTREGPAY      9  2     53EDTCDE(1 $)
+     A            TOTOVTPAY      9  2     69EDTCDE(1 $)
+     A            TOTWKPAY       9  2     84EDTCDE(1 $)
+
+     A*%%RS+<record-sequences>
+     A*%%RS+ <sequence name="Untitled">
+     A*%%RS+  <device type="printer" width="132" height="66" />
+     A*%%RS+  <record-write record-format="TITLE" />
+     A*%%RS+  <record-write record-format="COLHDG" />
+     A*%%RS+  <record-write record-format="EMPDETAIL" />
+     A*%%RS+  <record-write record-format="TOTALS" />
+     A*%%RS+ </sequence>
+     A*%%RS </record-sequences> 
