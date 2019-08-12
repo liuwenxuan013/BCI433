@@ -1,0 +1,71 @@
+000001190709             PGM                                                                                    
+000100190709             DCL        &Shift       *CHAR 1                                                        
+000101190709             DCL        &ShiftType   *CHAR 30                                                       
+000102190709             DCL        &OutQ        *CHAR 10                                                       
+000103190709             DCL        &OutQLib     *CHAR 10                                                       
+000104190709                                                                                                    
+000105190709             RTVUSRPRF  OUTQ(&OUTQ) OUTQLIB(&OUTQLIB) /*getting the user name of the logged in +    
+000107190709                          user and the name of the user library and put in a variable*/             
+000108190709                                                                                                    
+000109190709             CLROUTQ    &OUTQLIB/&OUTQ /* Clearing the outputQ of the current User */               
+000110190709             ADDLIBLE   SENECAPAY                                                                   
+000111190709             MONMSG     MSGID(CPF0000) /* all 0s monitor all msgs 8064 is only for existing +       
+000112190709                          libraries */                                                              
+000113190709                                                                                                    
+000114190709             SNDUSRMSG  MSG('1 - Day Shift, 2 - Night Shift, 3 - Afternoon Shift, 4 - All +         
+000115190709                          Shifts 5 - EXIT') MSGRPY(&SHIFT)                                          
+000116190709                                                                                                    
+000117190709                                                                                                    
+000118190709             DOWHILE    (&SHIFT *NE '5')                                                            
+000119190709                SELECT                                                                              
+000120190709                   WHEN       (&SHIFT = '1') DO                                                     
+000121190709                      CHGVAR     &SHIFTTYPE  'D A Y   S H I F T'                                    
+000122190709                      OVRPRTF    FILE(PAYRPT2) SPLFNAME(DAYSHIFT)                                   
+000123190709                      OVRDBF     ALLSHIFT DAYS                                                      
+000124190709                      CALL       PAYROLLPG2 PARM(&SHIFTTYPE)                                        
+000125190709                      DSPSPLF    FILE(DAYSHIFT) SPLNBR(*LAST)                                       
+000126190709                      WRKSPLF                                                                       
+000127190709                   ENDDO                                                                            
+000128190709                                                                                                    
+000129190709                   WHEN       (&SHIFT = '2') DO                                                     
+000130190709                      CHGVAR     &SHIFTTYPE  'N I G H T   S H I F T'                                
+000131190709                      OVRPRTF    FILE(PAYRPT2) SPLFNAME(NIGHTSHIFT)                                 
+000132190709                      OVRDBF     ALLSHIFT NIGHTS                                                    
+000133190709                      CALL       PAYROLLPG2 PARM(&SHIFTTYPE)                                        
+000134190709                      DSPSPLF    FILE(NIGHTSHIFT) SPLNBR(*LAST)                                     
+000135190709                      WRKSPLF                                                                       
+000136190709                   ENDDO                                                                            
+000137190709                                                                                                    
+000138190709                   WHEN       (&SHIFT = '3') DO                                                     
+000139190709                      CHGVAR     &SHIFTTYPE  'A F T E R N O O N   S H I F T'                        
+000140190709                      OVRPRTF    FILE(PAYRPT2) SPLFNAME(AFTRNSHIFT)                                 
+000141190709                      OVRDBF     ALLSHIFT AFTERNOONS                                                
+000142190709                      CALL       PAYROLLPG2 PARM(&SHIFTTYPE)                                        
+000143190709                      DSPSPLF    FILE(AFTRNSHIFT) SPLNBR(*LAST)                                     
+000144190709                      WRKSPLF                                                                       
+000145190709                   ENDDO                                                                            
+000146190709                                                                                                    
+000147190709                   WHEN       (&SHIFT = '4') DO                                                     
+000148190709                      CHGVAR     &SHIFTTYPE  'A L L    S H I F T S'                                 
+000149190709                      OVRPRTF    FILE(PAYRPT2) OVRFLW(25) SPLFNAME(ALLSHIFT)                        
+000150190709                      OVRDBF     ALLSHIFT ALLSHIFTS                                                 
+000151190709                      CALL       PAYROLLPG2 PARM(&SHIFTTYPE)                                        
+000152190709                      DSPSPLF    FILE(ALLSHIFT) SPLNBR(*LAST)                                       
+000153190709                      WRKSPLF                                                                       
+000154190709                   ENDDO                                                                            
+000155190709                                                                                                    
+000156190709                   WHEN       (&SHIFT *NE '5') DO                                                   
+000157190709                      SNDUSRMSG  MSG(&SHIFT *CAT ' IS AN INVALID SELECTION. PRESS ENTRY KEY')       
+000158190709                   ENDDO                                                                            
+000159190709                ENDSELECT                                                                           
+000160190709                                                                                                    
+000161190709                SNDUSRMSG  MSG('1- Day Shift, 2- Night Shift, 3- Afternoon Shift, 4- All +          
+000162190709                             Shifts, 5- Exit') MSGRPY(&SHIFT)                                       
+000163190709             ENDDO                                                                                  
+000164190709             SNDPGMMSG  MSG('Okay to clear out an output queue in school - But never at work +      
+000165190709                          in production')                                                           
+000166190709             WRKOUTQ    &OUTQLIB/&OUTQ                                                              
+000167190709             ENDPGM                                                                                 
+000168190709                                                                                                    
+000169190709                                                                                                    
+000170190709                                                                                                    

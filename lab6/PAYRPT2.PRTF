@@ -1,0 +1,60 @@
+000001190703                R TITLE
+000002190703     A                                  1  5DATE
+000003190703     A                                      EDTCDE(Y)
+000004190703     A                                  1 17TIME
+000005190703     A                                  1 47'Weekly Payroll Report'
+000006190703     A                                  1 87'Page:'
+000007190703     A                                  1 93PAGNBR
+000008190703     A                                  2  5'Name:'
+000009190703     A                                  2 13'Senal Goonetilaka'
+000010190710     A            SHIFTTYPE     30      3 46
+000011190712     A          R COLH
+000043190710     A                                     2'Employee '
+000044190710     A                                      SPACEB(2)
+000045190710     A                                    17'Work'
+000046190710     A                                    28'Pay'
+000047190710     A                                    37'Hourly'
+000048190710     A                                    47'Hours'
+000049190710     A                                    56'Regular'
+000050190710     A                                    69'Overtime'
+000051190710     A                                    87'Total'
+000052190710     A                                     3'Number'
+000053190710     A                                      SPACEB(1)
+000054190710     A                                    17'Shift'
+000055190710     A                                    27'Grade'
+000056190710     A                                    37'Rate'
+000057190710     A                                    47'Worked'
+000058190710     A                                    56'Pay'
+000059190710     A                                    69'Pay'
+000067190710     A                                    92'Pay'
+000068190710     A                                      SPACEA(1)
+000070190710     A          R EMPDETAIL                 SPACEA(1)
+000071190710     A            EMPNUM    R              2REFFLD(ALLSHIFT/EMPNUM SENECAPAY/AL-
+000072190710     A                                      LSHIFT)
+000073190710     A                                      EDTWRD('0   -   -   ')
+000074190710     A            WORKSHIFT R             20REFFLD(ALLSHIFT/WORKSHIFT +
+000075190710     A                                      SENECAPAY/ALLSHIFT)
+000076190710     A            PAYGRADE  R    1        29REFFLD(ALLSHIFT/PAYGRADE +
+000077190710     A                                      SENECAPAY/ALLSHIFT)
+000078190710     A            HOURLYRATE     5  2     38EDTCDE(1)
+000079190710     A            HRSWORKED R             48REFFLD(ALLSHIFT/HRSWORKED +
+000080190710     A                                      SENECAPAY/ALLSHIFT)
+000081190710     A                                      EDTCDE(2)
+000083190710     A            REGULARPAY     7  2     55EDTCDE(2)
+000085190710     A            OVERPAY        7  2     69EDTCDE(2)
+000087190710     A            TOTALPAY       7  2     90EDTCDE(2)
+000089190703     A          R TOTALS                    SPACEB(2)
+000090190703     A                                    37'Totals:'
+000091190710     A            TOTREGPAY      9  2     53EDTCDE(2 $)
+000092190710     A            TOTOVTPAY      9  2     71EDTCDE(2 $)
+000093190710     A            TOTWKPAY       9  2     88EDTCDE(2 $)
+000100
+000101190712     A*%%RS+<record-sequences>
+000102190712     A*%%RS+ <sequence name="Untitled">
+000103190712     A*%%RS+  <device type="printer" width="132" height="66" />
+000104190712     A*%%RS+  <record-write record-format="TITLE" />
+000105190712     A*%%RS+  <record-write record-format="COLH" />
+000106190712     A*%%RS+  <record-write record-format="EMPDETAIL" />
+000107190712     A*%%RS+  <record-write record-format="TOTALS" />
+000108190712     A*%%RS+ </sequence>
+000109190712     A*%%RS </record-sequences>
